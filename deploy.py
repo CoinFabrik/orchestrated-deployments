@@ -37,5 +37,16 @@ deployer = Account(web3, build_path, deployer_address, deployer_decrypted_key)
 ERC20_code_hash, ERC20_code = deployer.deploy("ERC20", tx_args(gas = 3000000, gasPrice = gas_price))
 assert web3.eth.waitForTransactionReceipt(ERC20_code_hash).status == 1, "Error deploying ERC20 code."
 
+WonderERC20_code_hash, WonderERC20_code = deployer.deploy("WonderfulERC20", tx_args(gas = 3000000, gasPrice = gas_price))
+assert web3.eth.waitForTransactionReceipt(WonderERC20_code_hash).status == 1, "Error deploying WonderERC20 code."
+
 proxy_hash, proxy = deployer.deploy("Proxy", tx_args(gas = 3000000, gasPrice = gas_price), ERC20_code.address, "0x")
 assert web3.eth.waitForTransactionReceipt(proxy_hash).status == 1, "Error deploying ERC20 code."
+
+with open("addresses.json", "w") as dump_file:
+  data = {
+    "proxy":proxy.address,
+    "ERC20": ERC20_code.address,
+    "WonderfulERC20": WonderERC20_code.address
+    }
+  json.dump(data, dump_file, indent=4)
