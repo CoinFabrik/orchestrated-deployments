@@ -29,6 +29,13 @@ class Account:
     print("Contract {0} deployment transaction hash: {1}\n".format(contract_name, tx_hash))
     return tx_hash, contract
 
+  def send_transaction(self, tx_data):
+    tx_data["nonce"] = self.nonce
+    signed_tx = self.web3.eth.account.signTransaction(tx_data, self.decrypted_key)
+    tx_hash = self.web3.toHex(self.web3.eth.sendRawTransaction(signed_tx.rawTransaction))
+    self.nonce += 1
+    return tx_hash
+
   @staticmethod
   def generate_contract_address(address, nonce):
     return to_checksum_address('0x' + keccak(rlp.encode([bytes(bytearray.fromhex(address[2:])), nonce]))[-20:].hex())
