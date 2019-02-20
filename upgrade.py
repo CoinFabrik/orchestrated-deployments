@@ -38,6 +38,9 @@ with open("addresses.json") as address_file:
 deployer = Account(web3, build_path, deployer_address, deployer_decrypted_key)
 proxy = deployer.instantiate_contract("Proxy", addresses["proxy"])
 
+WonderERC20_code_hash, WonderERC20_code = deployer.deploy("WonderfulERC20", tx_args(gas = 3000000, gasPrice = gas_price))
+assert web3.eth.waitForTransactionReceipt(WonderERC20_code_hash).status == 1, "Error deploying WonderERC20 code."
+
 upgrade_data = proxy.functions.upgradeTo(addresses["WonderfulERC20"]).buildTransaction(tx_args())
 upgrade_hash = deployer.send_transaction(upgrade_data)
 print(f'Upgrading... {upgrade_hash}')
