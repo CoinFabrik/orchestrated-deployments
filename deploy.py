@@ -44,6 +44,5 @@ with open("addresses.json", "w") as dump_file:
   data = {
     "proxy":proxy.address,
     "ERC20": ERC20_code.address,
-    "WonderfulERC20": WonderERC20_code.address
     }
   json.dump(data, dump_file, indent=4)
