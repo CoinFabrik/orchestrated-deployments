@@ -25,11 +25,11 @@ web3 = Web3(HTTPProvider(args.network))
 gas_price = 3000000000
 build_path = "build"
 
-with open("keystore/test") as key_file:
+with open("keystore/keyfile") as key_file:
   file_content = json.load(key_file)
   deployer_address = web3.toChecksumAddress(file_content["address"])
   deployer_encrypted_key = file_content
-  deployer_decryption_key = "test"
+  deployer_decryption_key = "coinfabrik123"
   deployer_decrypted_key = web3.eth.account.decrypt(deployer_encrypted_key, deployer_decryption_key)
 
 deployer = Account(web3, build_path, deployer_address, deployer_decrypted_key)
