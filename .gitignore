@@ -1,4 +1,7 @@
 __pycache__
+addresses.json
+.vscode
 py-venv
 build/
+geth/datadir
 solc-5.3
