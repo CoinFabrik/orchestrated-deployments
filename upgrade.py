@@ -9,7 +9,7 @@ from os.path import getmtime, join, exists, abspath
 
 def parse_args(args):
   parser = argparse.ArgumentParser()
-  parser.add_argument("-n", "--network", default="http://localhost:8545", help="Enter network, defaults to localhost:8545")
+  parser.add_argument("-n", "--network", default="http://localhost:7999", help="Enter network, defaults to localhost:8545")
   parser.add_argument("-a", "--address", help="Enter the new implementation address")
   return parser.parse_known_args(args)
 
@@ -22,14 +22,14 @@ def tx_args(gas=200000, gasPrice=3000000000, value=0, nonce=None):
 args, unknown = parse_args(sys.argv[1: ])
 
 web3 = Web3(HTTPProvider(args.network))
-
+gas_price = 3000000000
 build_path = "build"
 
-with open("keystore/test") as key_file:
+with open("keystore/keyfile") as key_file:
   file_content = json.load(key_file)
   deployer_address = web3.toChecksumAddress(file_content["address"])
   deployer_encrypted_key = file_content
-  deployer_decryption_key = "test"
+  deployer_decryption_key = "coinfabrik123"
   deployer_decrypted_key = web3.eth.account.decrypt(deployer_encrypted_key, deployer_decryption_key)
 
 with open("addresses.json") as address_file:
@@ -43,6 +43,6 @@ assert web3.eth.waitForTransactionReceipt(WonderERC20_code_hash).status == 1, "E
 
 upgrade_data = proxy.functions.upgradeTo(WonderERC20_code.address).buildTransaction(tx_args())
 upgrade_hash = deployer.send_transaction(upgrade_data)
-print(f'Upgrading... {upgrade_hash}')
+print(f'Upgrading... {upgrade_hash}, new implementation is at address {proxy.address}')
 assert web3.eth.waitForTransactionReceipt(upgrade_hash).status == 1, "Error deploying ERC20 code."
 print("Upgrade succesful!")

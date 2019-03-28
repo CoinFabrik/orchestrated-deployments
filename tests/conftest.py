@@ -12,7 +12,7 @@ build_path = "../build"
 
 @pytest.fixture(scope="module")
 def web3():
-  web3 = Web3(Web3.HTTPProvider("http://localhost:8545"))
+  web3 = Web3(Web3.HTTPProvider("http://localhost:7999"))
   assert web3.isConnected(), "Cannot establish connection with ethereum node."
   return web3
 
