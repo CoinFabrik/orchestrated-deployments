@@ -36,11 +36,12 @@ deployer = Account(web3, build_path, deployer_address, deployer_decrypted_key)
 
 ERC20_code_hash, ERC20_code = deployer.deploy("ERC20", tx_args(gas = 3000000, gasPrice = gas_price))
 assert web3.eth.waitForTransactionReceipt(ERC20_code_hash).status == 1, "Error deploying ERC20 code."
-print("Transaction sucessfull...")
+print("Transaction sucessfull... contract at {}".format(ERC20_code.address))
+
 
 proxy_hash, proxy = deployer.deploy("Proxy", tx_args(gas = 3000000, gasPrice = gas_price), ERC20_code.address, "0x")
 assert web3.eth.waitForTransactionReceipt(proxy_hash).status == 1, "Error deploying ERC20 code."
-print("Transaction sucessfull...")
+print("Transaction sucessfull... contract at {}".format(proxy.address))
 
 with open("addresses.json", "w") as dump_file:
   data = {
