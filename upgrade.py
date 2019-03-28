@@ -9,7 +9,7 @@ from os.path import getmtime, join, exists, abspath
 
 def parse_args(args):
   parser = argparse.ArgumentParser()
-  parser.add_argument("-n", "--network", default="http://localhost:7999", help="Enter network, defaults to localhost:8545")
+  parser.add_argument("-n", "--network", default="http://10.10.0.80:7999", help="Enter network, defaults to localhost:8545")
   parser.add_argument("-a", "--address", help="Enter the new implementation address")
   return parser.parse_known_args(args)
 
