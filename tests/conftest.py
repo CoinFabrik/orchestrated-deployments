@@ -9,12 +9,10 @@ import time
 
 #-----------------------------------------------------------------------------------------------------------------------------
 build_path = "../build"
-with open("../networks.json", "r") as net_file:
-  config = json.load(net_file)
 
 @pytest.fixture(scope="module")
 def web3():
-  web3 = Web3(Web3.HTTPProvider(config["testNode"]))
+  web3 = Web3(Web3.HTTPProvider(os.getenv("TESTNODE")))
   assert web3.isConnected(), "Cannot establish connection with ethereum node."
   return web3
 
