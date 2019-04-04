@@ -1,0 +1,3 @@
+cd /var/orch-deploy;
+. py-venv/bin/activate;
+./upgrade.py;

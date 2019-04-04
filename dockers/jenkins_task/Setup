@@ -1,0 +1,5 @@
+git clone https://github.com/CoinFabrik/orchestrated-deployments /var/orch-deploy;
+cd /var/orch-deploy;
+./setup_virtualenv.sh;
+./compile.sh;
+

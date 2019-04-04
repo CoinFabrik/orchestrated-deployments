@@ -1,0 +1,6 @@
+cd /var/orch-deploy;
+. py-venv/bin/activate;
+./compile.sh;
+cd tests;
+pytest -s -x;
+
