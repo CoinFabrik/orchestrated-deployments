@@ -13,13 +13,15 @@ deploy_node = getFromJsonOrEnv("networks.json", "DEPLOYNODE")
 
 with open("deploy_config.json") as deploy_config:
   deploy_config = json.load(deploy_config)
-  
+
 web3 = Web3(HTTPProvider(deploy_node))
 
-deployer_address, deployer_decrypted_key = decryptKeyFromKeyfile(web3, deploy_config["keyfile_path"], getpass("Insert decryption password:"))
-deployer = Account(web3, deploy_config["build_path"], deployer_address, deployer_decrypted_key)
+keyfile = json.loads(getenv("KEYFILE"))
+decrypt_pass = getenv("DECRYPTPASS")
 
-print(proxy_address)
+deployer_decrypted_key = web3.eth.account.decrypt(keyfile, decrypt_pass)
+deployer = Account(web3, deploy_config["build_path"], , deployer_decrypted_key)
+
 proxy = deployer.instantiate_contract("Proxy", proxy_address)
 
 WonderERC20_code_hash, WonderERC20_code = deployer.deploy("WonderfulERC20", tx_args(gas = 3000000, gasPrice = deploy_config["gas_price"]))
