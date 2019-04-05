@@ -20,7 +20,7 @@ keyfile = json.loads(getenv("KEYFILE"))
 decrypt_pass = getenv("DECRYPTPASS")
 
 deployer_decrypted_key = web3.eth.account.decrypt(keyfile, decrypt_pass)
-deployer = Account(web3, deploy_config["build_path"], , deployer_decrypted_key)
+deployer = Account(web3, deploy_config["build_path"], keyfile["address"], deployer_decrypted_key)
 
 proxy = deployer.instantiate_contract("Proxy", proxy_address)
 
