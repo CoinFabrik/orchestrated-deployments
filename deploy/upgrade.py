@@ -8,19 +8,20 @@ from os import getenv
 import json
 import sys
 
-proxy_address = getFromJsonOrEnv("addresses.json", "PROXY")
 deploy_node = getFromJsonOrEnv("networks.json", "DEPLOYNODE")
+web3 = Web3(HTTPProvider(deploy_node))
+proxy_address = web3.toChecksumAddress(getFromJsonOrEnv("addresses.json", "PROXY"))
 
 with open("deploy_config.json") as deploy_config:
   deploy_config = json.load(deploy_config)
 
-web3 = Web3(HTTPProvider(deploy_node))
+with open(getenv("KEYFILE")) as keyfile_c:
+  keyfile = json.load(keyfile_c)
 
-keyfile = json.loads(getenv("KEYFILE"))
 decrypt_pass = getenv("DECRYPTPASS")
 
 deployer_decrypted_key = web3.eth.account.decrypt(keyfile, decrypt_pass)
-deployer = Account(web3, deploy_config["build_path"], keyfile["address"], deployer_decrypted_key)
+deployer = Account(web3, deploy_config["build_path"], web3.toChecksumAddress(keyfile["address"]), deployer_decrypted_key)
 
 proxy = deployer.instantiate_contract("Proxy", proxy_address)
 
