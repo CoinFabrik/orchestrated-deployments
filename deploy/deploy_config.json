@@ -1,5 +1,5 @@
 {
   "gas_price": 3000000000,
   "build_path": "../build",
-  "keyfile_path": "../keystore/keyfile"
+  "keyfile_path": "../keystore/keyfile_test"
 }
