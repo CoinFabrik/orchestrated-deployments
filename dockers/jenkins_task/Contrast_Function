@@ -1,0 +1,4 @@
+cd /var/orch-deploy;
+. py-venv/bin/activate;
+cd deploy;
+./testNewFunction.py

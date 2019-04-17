@@ -20,8 +20,8 @@ with open(getenv("KEYFILE")) as keyfile_c:
 
 decrypt_pass = getenv("DECRYPTPASS")
 
-deployer_address, deployer_decrypted_key = decryptKeyFromKeyfile(web3, keyfile, decrypt_pass)
-deployer = Account(web3, deploy_config["build_path"], deployer_address, deployer_decrypted_key)
+deployer_decrypted_key = web3.eth.account.decrypt(keyfile, decrypt_pass)
+deployer = Account(web3, deploy_config["build_path"], web3.toChecksumAddress(keyfile["address"]), deployer_decrypted_key)
 
 wonder_erc20 = deployer.instantiate_contract("WonderfulERC20", proxy_address)
 

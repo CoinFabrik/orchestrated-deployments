@@ -23,3 +23,11 @@ Note that you need to link this job to Upgrade:
 - Build other projects
 - Write down the name of the tasks "Upgrade"
 - Make sure it is selected 'Trigger only if build is stable'
+
+### Contrast Function
+
+Calls a deployed contract function.
+Throws an error if not call is not supported, else, prints the result.
+You must scope your credentials in this task. To do that:
+- Press the checkbox: "Use secret text(s) or file(s)"
+- Bind both your decryption password and your standard keyfile with the names KEYFILE and DECRYPTPASS respectively.
