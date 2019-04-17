@@ -1,6 +1,5 @@
 __pycache__
 addresses.json
-keystore/
 .vscode
 py-venv
 build/
