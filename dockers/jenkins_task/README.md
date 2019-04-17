@@ -22,3 +22,4 @@ Note that you need to link this job to Upgrade:
 - Select at the bottom of the form (Post-Build options)
 - Build other projects
 - Write down the name of the tasks "Upgrade"
+- Make sure it is selected 'Trigger only if build is stable'

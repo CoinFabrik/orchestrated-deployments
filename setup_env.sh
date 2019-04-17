@@ -8,7 +8,6 @@ source ./py-venv/bin/activate
 pip install --upgrade pip setuptools
 pip install web3 pytest
 
-export DEPLOYNODE="http://localhost:8545"
 python3 fund.py
 
 cd deploy/
