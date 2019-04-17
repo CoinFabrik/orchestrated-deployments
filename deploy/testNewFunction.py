@@ -2,7 +2,6 @@
 from common import tx_args, getFromJsonOrEnv, decryptKeyFromKeyfile
 from os.path import getmtime, join, exists, abspath
 from web3 import Web3, HTTPProvider
-from getpass import getpass
 from account import Account
 from os import getenv
 import json
@@ -16,7 +15,12 @@ with open("deploy_config.json") as deploy_config:
 
 web3 = Web3(HTTPProvider(test_node))
 
-deployer_address, deployer_decrypted_key = decryptKeyFromKeyfile(web3, deploy_config["keyfile_path"], getpass("Insert decryption password:"))
+with open(getenv("KEYFILE")) as keyfile_c:
+  keyfile = json.load(keyfile_c)
+
+decrypt_pass = getenv("DECRYPTPASS")
+
+deployer_address, deployer_decrypted_key = decryptKeyFromKeyfile(web3, keyfile, decrypt_pass)
 deployer = Account(web3, deploy_config["build_path"], deployer_address, deployer_decrypted_key)
 
 wonder_erc20 = deployer.instantiate_contract("WonderfulERC20", proxy_address)

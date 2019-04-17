@@ -2,7 +2,6 @@
 from common import tx_args, getFromJsonOrEnv, decryptKeyFromKeyfile
 from os.path import getmtime, join, exists, abspath
 from web3 import Web3, HTTPProvider
-from getpass import getpass
 from account import Account
 from os import getenv
 import json
